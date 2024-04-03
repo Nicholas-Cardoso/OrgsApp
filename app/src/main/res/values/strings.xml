@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Orgs</string>
+    <string name="open_list">Abrir lista</string>
+
+    <!--Form-->
+    <string name="price">Price</string>
+    <string name="description">Description</string>
+    <string name="save">Save</string>
+    <string name="home">Return</string>
+    <string name="name">Name</string>
+</resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".ui.activity.FormProductActivity">
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/name"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toEndOf="@id/description"
+            app:layout_constraintStart_toStartOf="@id/description"
+            app:layout_constraintTop_toBottomOf="@id/description" />
+
+        <Button
+            android:id="@+id/btn_return"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/red"
+            android:text="@string/home"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_save"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            app:layout_constraintVertical_bias="1" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:alpha="0.7"
+            android:backgroundTint="@color/blue"
+            android:enabled="false"
+            android:text="@string/save"
+            app:cornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_return"
+            app:layout_constraintTop_toBottomOf="@+id/price"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
