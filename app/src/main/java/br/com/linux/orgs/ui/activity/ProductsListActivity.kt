@@ -5,23 +5,28 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.linux.orgs.R
+import br.com.linux.orgs.databinding.ActivityProductsBinding
 import br.com.linux.orgs.dto.ProductsDAO
 import br.com.linux.orgs.ui.recyclerview.adapter.ListProductsAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ProductsListActivity : AppCompatActivity(R.layout.activity_products) {
+class ProductsListActivity : AppCompatActivity() {
     private val dao = ProductsDAO()
     private val adapter = ListProductsAdapter(this, dao.listOfProducts())
+    private val binding by lazy {
+        ActivityProductsBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+        configureRecyclerView()
+        setProductList()
     }
 
     override fun onResume() {
         super.onResume()
         adapter.update(dao.listOfProducts())
-        configureRecyclerView()
-        setProductList()
     }
 
     private fun configureRecyclerView() {

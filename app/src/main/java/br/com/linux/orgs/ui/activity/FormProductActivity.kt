@@ -8,13 +8,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import br.com.linux.orgs.R
+import br.com.linux.orgs.databinding.ActivityFormProductBinding
 import br.com.linux.orgs.dto.ProductsDAO
 import br.com.linux.orgs.model.Products
 import java.math.BigDecimal
 
-class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
+class FormProductActivity : AppCompatActivity() {
+    private val binding by lazy {
+        ActivityFormProductBinding.inflate(layoutInflater)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         configureButtonSave()
     }
 
@@ -22,21 +28,21 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
         val productsDao = ProductsDAO()
         onChangeFields()
 
-        val saveBtn = findViewById<Button>(R.id.btn_save)
+        val saveBtn = binding.btnSave
         saveBtn.setOnClickListener {
             productsDao.addProducts(createProduct())
             finish()
         }
 
-        val homeBtn = findViewById<Button>(R.id.btn_return)
+        val homeBtn = binding.btnReturn
         homeBtn.setOnClickListener {
             finish()
         }
     }
 
     private fun onChangeFields() {
-        val nameField = findViewById<EditText>(R.id.name)
-        val descField = findViewById<EditText>(R.id.description)
+        val nameField = binding.name
+        val descField = binding.description
         nameField.addTextChangedListener {
             checkFieldsValidity()
         }
@@ -47,7 +53,7 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
 
     private fun checkFieldsValidity() {
         val product = createProduct()
-        val saveBtn = findViewById<Button>(R.id.btn_save)
+        val saveBtn = binding.btnSave
 
         val isValid = product.name.isNotEmpty() && product.description.isNotEmpty()
         saveBtn.isEnabled = isValid
@@ -55,11 +61,11 @@ class FormProductActivity : AppCompatActivity(R.layout.activity_form_product) {
     }
 
     private fun createProduct(): Products {
-        val nameField = findViewById<EditText>(R.id.name)
+        val nameField = binding.name
         val name = nameField.text.toString()
-        val descField = findViewById<EditText>(R.id.description)
+        val descField = binding.description
         val desc = descField.text.toString()
-        val priceField = findViewById<EditText>(R.id.price)
+        val priceField = binding.price
         val price = priceField.text.toString()
 
         val priceParse = if (price.isBlank()) {
