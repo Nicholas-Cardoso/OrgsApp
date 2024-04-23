@@ -2,10 +2,24 @@
     <string name="app_name">Orgs</string>
     <string name="open_list">Abrir lista</string>
 
-    <!--Form-->
+    <!--Form Create Products-->
     <string name="price">Price</string>
     <string name="description">Description</string>
     <string name="save">Save</string>
     <string name="home">Return</string>
     <string name="name">Name</string>
+
+    <!--AppBar-->
+    <string name="favorite">Favorite</string>
+    <string name="search">Search</string>
+    <string name="more">More</string>
+    <string name="content_description_favorite">Favorite</string>
+    <string name="content_description_search">Search</string>
+    <string name="content_description_more">More</string>
+
+    <!--Form Send Mail-->
+    <string name="recipient">Recipient</string>
+    <string name="subject">Subject</string>
+    <string name="body">Body</string>
+    <string name="send">Send</string>
 </resources>

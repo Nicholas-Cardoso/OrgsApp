@@ -8,7 +8,6 @@ import br.com.linux.orgs.R
 import br.com.linux.orgs.databinding.ActivityProductsBinding
 import br.com.linux.orgs.dto.ProductsDAO
 import br.com.linux.orgs.ui.recyclerview.adapter.ListProductsAdapter
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ProductsListActivity : AppCompatActivity() {
     private val dao = ProductsDAO()
@@ -22,6 +21,7 @@ class ProductsListActivity : AppCompatActivity() {
         setContentView(binding.root)
         configureRecyclerView()
         setProductList()
+        sendMailService()
     }
 
     override fun onResume() {
@@ -35,9 +35,17 @@ class ProductsListActivity : AppCompatActivity() {
     }
 
     private fun setProductList() {
-        val floatingAdd = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+        val floatingAdd = binding.floatingActionButton
         floatingAdd.setOnClickListener {
             val intent = Intent(this, FormProductActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun sendMailService() {
+        val sendMail = binding.sendMail
+        sendMail.setOnClickListener {
+            val intent = Intent(this, FormSendMailActivity::class.java)
             startActivity(intent)
         }
     }

@@ -1,13 +1,8 @@
 package br.com.linux.orgs.ui.activity
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import br.com.linux.orgs.R
 import br.com.linux.orgs.databinding.ActivityFormProductBinding
 import br.com.linux.orgs.dto.ProductsDAO
 import br.com.linux.orgs.model.Products
