@@ -6,12 +6,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import br.com.linux.orgs.Inject
 import br.com.linux.orgs.data.remote.mail.SendMailService
 import br.com.linux.orgs.databinding.ActivityFormSendMailBinding
+import br.com.linux.orgs.inject.Inject
 import br.com.linux.orgs.model.BodyMail
 
 class FormSendMailActivity(
@@ -84,32 +83,17 @@ class FormSendMailActivity(
     }
 
     private val handler = Handler(Looper.getMainLooper())
-
     private fun senderMail(body: BodyMail) {
-        val isExecuted = mailService.sendMailService(body)
-
-        handler.postDelayed({
-            Toast.makeText(
-                this,
-                "Enviando o e-mail...",
-                Toast.LENGTH_SHORT
-            ).show()
-            when (isExecuted) {
-                true -> makeText(
+        mailService.sendMail(body) {
+            handler.postDelayed({
+                Toast.makeText(
                     this,
-                    "E-mail enviado com sucesso!",
+                    if (it) "E-mail enviado com sucesso!" else "Ocorreu um erro. Tente novamente mais tarde!",
                     Toast.LENGTH_SHORT
                 ).show()
-
-                else ->
-                    makeText(
-                        this,
-                        "Ocorreu um erro. Tente novamente mais tarde!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-            }
-            clearInputs()
-        }, 250)
+            }, 250)
+            if (it) clearInputs()
+        }
     }
 
     private fun clearInputs() {

@@ -1,4 +1,4 @@
-package br.com.linux.orgs
+package br.com.linux.orgs.inject
 
 import br.com.linux.orgs.data.remote.mail.SendMailService
 

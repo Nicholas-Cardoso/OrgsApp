@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface MailServiceApi {
     @POST("/send-mail")
-    fun sendMail(@Body bodyMail: BodyMail): Call<BodyMail>
+    fun sendMail(@Body bodyMail: BodyMail): Call<List<BodyMail>>
 }

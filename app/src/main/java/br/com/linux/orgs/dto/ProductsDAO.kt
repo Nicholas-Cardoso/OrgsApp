@@ -3,6 +3,9 @@ package br.com.linux.orgs.dto
 import br.com.linux.orgs.model.Products
 
 class ProductsDAO {
+    companion object {
+        val products = mutableListOf<Products>()
+    }
 
     fun addProducts(product: Products) {
         products.add(product)
@@ -10,9 +13,5 @@ class ProductsDAO {
 
     fun listOfProducts(): List<Products> {
         return products.toList()
-    }
-
-    companion object {
-        val products = mutableListOf<Products>()
     }
 }
