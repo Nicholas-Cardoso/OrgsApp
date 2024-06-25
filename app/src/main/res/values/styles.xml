@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="buttonBorderWithHover" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/border_button_with_hover</item>
+    </style>
+
+    <style name="buttonBorderWithoutHover" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/button_hover_without_border</item>
+    </style>
+
+    <style name="EditTextForm" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/edit_text_form</item>
+    </style>
+
+    <style name="textViewPrice" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/text_price</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:shadowColor">@color/black</item>
+    </style>
+</resources>

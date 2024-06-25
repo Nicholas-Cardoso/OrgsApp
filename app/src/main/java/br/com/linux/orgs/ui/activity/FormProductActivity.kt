@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import br.com.linux.orgs.databinding.ActivityFormProductBinding
 import br.com.linux.orgs.dto.ProductsDAO
+import br.com.linux.orgs.extensions.tryLoadImage
 import br.com.linux.orgs.model.Products
+import br.com.linux.orgs.ui.dialog.DialogImageForm
 import java.math.BigDecimal
 
 class FormProductActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFormProductBinding.inflate(layoutInflater)
     }
+    private var url: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +25,13 @@ class FormProductActivity : AppCompatActivity() {
     private fun configureButtonSave() {
         val productsDao = ProductsDAO()
         onChangeFields()
+
+        binding.imageView.setOnClickListener {
+            DialogImageForm(this).showDialog(url) {
+                url = it
+                binding.imageView.tryLoadImage(url)
+            }
+        }
 
         val saveBtn = binding.btnSave
         saveBtn.setOnClickListener {
@@ -38,10 +48,14 @@ class FormProductActivity : AppCompatActivity() {
     private fun onChangeFields() {
         val nameField = binding.name
         val descField = binding.description
+        val priceField = binding.price
         nameField.addTextChangedListener {
             checkFieldsValidity()
         }
         descField.addTextChangedListener {
+            checkFieldsValidity()
+        }
+        priceField.addTextChangedListener {
             checkFieldsValidity()
         }
     }
@@ -50,7 +64,8 @@ class FormProductActivity : AppCompatActivity() {
         val product = createProduct()
         val saveBtn = binding.btnSave
 
-        val isValid = product.name.isNotEmpty() && product.description.isNotEmpty()
+        val isValid =
+            product.name!!.isNotEmpty() && product.description!!.isNotEmpty() && product.price!! > BigDecimal.ZERO
         saveBtn.isEnabled = isValid
         saveBtn.alpha = if (isValid) 1.0f else 0.7f
     }
@@ -70,9 +85,10 @@ class FormProductActivity : AppCompatActivity() {
         }
 
         return Products(
-            name,
-            desc,
-            priceParse
+            name = name,
+            description = desc,
+            price = priceParse,
+            url = url
         )
     }
 }

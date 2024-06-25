@@ -8,6 +8,7 @@
     android:checkable="true"
     android:clickable="true"
     android:focusable="true"
+    android:theme="@style/Theme.MaterialComponents.Light"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp">
 
@@ -66,8 +67,7 @@
             app:layout_constraintEnd_toStartOf="@id/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/product_1"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            app:srcCompat="@drawable/imagem_padrao" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

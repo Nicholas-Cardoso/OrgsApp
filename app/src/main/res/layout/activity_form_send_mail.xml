@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -9,93 +8,82 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".ui.activity.FormSendMailActivity">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputRecipient"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/mailRecipient"
+            style="@style/EditTextForm"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:autofillHints="@string/recipient"
+            android:fontFamily="@font/comfortaa_regular"
+            android:hint="@string/recipient"
+            android:inputType="text"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/mailRecipient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/recipient"
-                android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputSubject"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/mailSubject"
+            style="@style/EditTextForm"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:autofillHints="@string/recipient"
+            android:fontFamily="@font/comfortaa_regular"
+            android:hint="@string/subject"
+            android:inputType="text"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputRecipient">
+            app:layout_constraintTop_toBottomOf="@id/mailRecipient" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/mailSubject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/subject"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputBody"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/mailBody"
+            style="@style/EditTextForm"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:endIconMode="clear_text"
+            android:autofillHints="@string/recipient"
+            android:fontFamily="@font/comfortaa_regular"
+            android:hint="@string/subject"
+            android:inputType="text"
+            android:padding="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputSubject">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/mailBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/body"
-                android:inputType="textMultiLine" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toBottomOf="@id/mailSubject" />
 
         <Button
             android:id="@+id/btn_return"
+            style="@style/buttonBorderWithHover"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/red"
             android:text="@string/home"
+            android:textColor="@color/black"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_send"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputBody"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputBody" />
 
         <Button
             android:id="@+id/btn_send"
+            style="@style/buttonBorderWithoutHover"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:alpha="0.7"
-            android:backgroundTint="@color/blue"
             android:enabled="false"
             android:text="@string/send"
+            android:textColor="@color/white"
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_return"
-            app:layout_constraintTop_toBottomOf="@+id/textInputBody"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintTop_toBottomOf="@+id/textInputBody" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

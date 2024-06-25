@@ -2,6 +2,7 @@ package br.com.linux.orgs.ui.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import br.com.linux.orgs.R
@@ -32,6 +33,17 @@ class ProductsListActivity : AppCompatActivity() {
     private fun configureRecyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.adapter = adapter
+        adapter.whenClickSomeItem = {
+            if (!it.name.isNullOrBlank() && !it.description.isNullOrBlank() && it.price != null && !it.url.isNullOrBlank()) {
+                val intent = Intent(this, ViewProductsActivity::class.java).apply {
+                    putExtra("name", it.name)
+                    putExtra("description", it.description)
+                    putExtra("price", it.price.toString())
+                    putExtra("url", it.url)
+                }
+                startActivity(intent)
+            }
+        }
     }
 
     private fun setProductList() {
