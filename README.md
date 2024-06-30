@@ -1,4 +1,4 @@
-# Meu Primeiro App Android com Kotlin
+# App Android com Kotlin
 
 Este repositório contém o código-fonte e as anotações do meu projeto pessoal de desenvolvimento de um aplicativo Android utilizando a linguagem Kotlin.
 
