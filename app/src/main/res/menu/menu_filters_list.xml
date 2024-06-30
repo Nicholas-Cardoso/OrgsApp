@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/filter_list"
+        android:icon="@drawable/baseline_filter_list_24"
+        android:title="Order"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menu_list_by_desc_name"
+                android:title="Desc name" />
+            <item
+                android:id="@+id/menu_list_by_asc_name"
+                android:title="Asc name" />
+            <item
+                android:id="@+id/menu_list_by_desc_description"
+                android:title="Desc description" />
+            <item
+                android:id="@+id/menu_list_by_asc_description"
+                android:title="Asc Description" />
+            <item
+                android:id="@+id/menu_list_by_desc_price"
+                android:title="Desc price" />
+            <item
+                android:id="@+id/menu_list_by_asc_price"
+                android:title="Asc price" />
+            <item
+                android:id="@+id/menu_list_no_order"
+                android:title="No order" />
+        </menu>
+    </item>
+</menu>

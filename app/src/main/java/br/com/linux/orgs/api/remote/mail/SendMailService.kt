@@ -1,6 +1,7 @@
-package br.com.linux.orgs.data.remote.mail
+package br.com.linux.orgs.api.remote.mail
 
 import android.util.Log
+import br.com.linux.orgs.api.remote.MailServiceApi
 import br.com.linux.orgs.model.BodyMail
 import retrofit2.Call
 import retrofit2.Callback

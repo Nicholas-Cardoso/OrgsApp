@@ -13,7 +13,7 @@ import coil.load
 
 class ListProductsAdapter(
     private val context: Context,
-    products: List<Products>,
+    products: List<Products> = emptyList(),
     var whenClickSomeItem: (product: Products) -> Unit = {}
 ) : RecyclerView.Adapter<ListProductsAdapter.ViewHolder>() {
     private val products = products.toMutableList()

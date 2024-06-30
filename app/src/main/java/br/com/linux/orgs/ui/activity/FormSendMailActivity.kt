@@ -8,7 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
-import br.com.linux.orgs.data.remote.mail.SendMailService
+import br.com.linux.orgs.api.remote.mail.SendMailService
 import br.com.linux.orgs.databinding.ActivityFormSendMailBinding
 import br.com.linux.orgs.inject.Inject
 import br.com.linux.orgs.model.BodyMail
@@ -21,6 +21,7 @@ class FormSendMailActivity(
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        title = "Send mail"
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configureButton()
@@ -47,15 +48,8 @@ class FormSendMailActivity(
         val subject = binding.mailSubject
         val body = binding.mailBody
 
-        recipient.addTextChangedListener {
-            checkFieldsValidity()
-        }
-        subject.addTextChangedListener {
-            checkFieldsValidity()
-        }
-        body.addTextChangedListener {
-            checkFieldsValidity()
-        }
+        val listAllData = listOf(recipient, subject, body)
+        listAllData.forEach { it.addTextChangedListener { checkFieldsValidity() } }
     }
 
     private fun checkFieldsValidity() {

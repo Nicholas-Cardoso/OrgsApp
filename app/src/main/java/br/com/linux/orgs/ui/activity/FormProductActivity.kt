@@ -3,8 +3,8 @@ package br.com.linux.orgs.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import br.com.linux.orgs.database.AppDatabase
 import br.com.linux.orgs.databinding.ActivityFormProductBinding
-import br.com.linux.orgs.dto.ProductsDAO
 import br.com.linux.orgs.extensions.tryLoadImage
 import br.com.linux.orgs.model.Products
 import br.com.linux.orgs.ui.dialog.DialogImageForm
@@ -14,28 +14,49 @@ class FormProductActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityFormProductBinding.inflate(layoutInflater)
     }
-    private var url: String? = null
+    private val database by lazy {
+        AppDatabase.getInstance(this).productDao()
+    }
+    private var urlDialog: String? = null
+    private var productId: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        title = "Create product"
+
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         configureButtonSave()
+
+        intent.getParcelableExtra<Products>("product")?.let { product ->
+            title = "Change product"
+            this.productId = product.id
+            with(binding) {
+                name.setText(product.name)
+                description.setText(product.description)
+                price.setText(product.price.toString())
+                imageView.tryLoadImage(product.url)
+                urlDialog = product.url
+            }
+        }
     }
 
     private fun configureButtonSave() {
-        val productsDao = ProductsDAO()
         onChangeFields()
 
         binding.imageView.setOnClickListener {
-            DialogImageForm(this).showDialog(url) {
-                url = it
-                binding.imageView.tryLoadImage(url)
+            DialogImageForm(this).showDialog(urlDialog) {
+                urlDialog = it
+                binding.imageView.tryLoadImage(urlDialog)
             }
         }
 
         val saveBtn = binding.btnSave
         saveBtn.setOnClickListener {
-            productsDao.addProducts(createProduct())
+            if (productId > 0) {
+                database.updateProduct(updateProduct())
+            } else {
+                database.insertProduct(createProduct())
+            }
             finish()
         }
 
@@ -49,15 +70,9 @@ class FormProductActivity : AppCompatActivity() {
         val nameField = binding.name
         val descField = binding.description
         val priceField = binding.price
-        nameField.addTextChangedListener {
-            checkFieldsValidity()
-        }
-        descField.addTextChangedListener {
-            checkFieldsValidity()
-        }
-        priceField.addTextChangedListener {
-            checkFieldsValidity()
-        }
+
+        val listData = listOf(nameField, descField, priceField)
+        listData.forEach { it.addTextChangedListener { checkFieldsValidity() } }
     }
 
     private fun checkFieldsValidity() {
@@ -71,24 +86,45 @@ class FormProductActivity : AppCompatActivity() {
     }
 
     private fun createProduct(): Products {
-        val nameField = binding.name
-        val name = nameField.text.toString()
-        val descField = binding.description
-        val desc = descField.text.toString()
-        val priceField = binding.price
-        val price = priceField.text.toString()
+        with(binding) {
+            val name = name.text.toString()
+            val desc = description.text.toString()
+            val price = price.text.toString()
 
-        val priceParse = if (price.isBlank()) {
-            BigDecimal.ZERO
-        } else {
-            BigDecimal(price)
+            val priceParse = if (price.isBlank()) {
+                BigDecimal.ZERO
+            } else {
+                BigDecimal(price)
+            }
+
+            return Products(
+                name = name,
+                description = desc,
+                price = priceParse,
+                url = urlDialog
+            )
         }
+    }
 
-        return Products(
-            name = name,
-            description = desc,
-            price = priceParse,
-            url = url
-        )
+    private fun updateProduct(): Products {
+        with(binding) {
+            val name = name.text.toString()
+            val desc = description.text.toString()
+            val price = price.text.toString()
+
+            val priceParse = if (price.isBlank()) {
+                BigDecimal.ZERO
+            } else {
+                BigDecimal(price)
+            }
+
+            return Products(
+                id = productId,
+                name = name,
+                description = desc,
+                price = priceParse,
+                url = urlDialog
+            )
+        }
     }
 }

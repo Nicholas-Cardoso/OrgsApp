@@ -1,4 +1,4 @@
-package br.com.linux.orgs.data.remote.mail
+package br.com.linux.orgs.api.remote
 
 import br.com.linux.orgs.model.BodyMail
 import retrofit2.Call
