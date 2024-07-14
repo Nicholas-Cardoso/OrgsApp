@@ -3,14 +3,16 @@ package br.com.linux.orgs.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import androidx.lifecycle.lifecycleScope
 import br.com.linux.orgs.database.AppDatabase
 import br.com.linux.orgs.databinding.ActivityFormProductBinding
 import br.com.linux.orgs.extensions.tryLoadImage
 import br.com.linux.orgs.model.Products
 import br.com.linux.orgs.ui.dialog.DialogImageForm
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-class FormProductActivity : AppCompatActivity() {
+class FormProductActivity : UserBaseActivity() {
     private val binding by lazy {
         ActivityFormProductBinding.inflate(layoutInflater)
     }
@@ -52,12 +54,14 @@ class FormProductActivity : AppCompatActivity() {
 
         val saveBtn = binding.btnSave
         saveBtn.setOnClickListener {
-            if (productId > 0) {
-                database.updateProduct(updateProduct())
-            } else {
-                database.insertProduct(createProduct())
+            lifecycleScope.launch {
+                if (productId > 0) {
+                    database.updateProduct(updateProduct())
+                } else {
+                    database.createProduct(createProduct())
+                }
+                finish()
             }
-            finish()
         }
 
         val homeBtn = binding.btnReturn
@@ -101,7 +105,8 @@ class FormProductActivity : AppCompatActivity() {
                 name = name,
                 description = desc,
                 price = priceParse,
-                url = urlDialog
+                url = urlDialog,
+                userId = user.value?.id.toString()
             )
         }
     }
@@ -123,7 +128,8 @@ class FormProductActivity : AppCompatActivity() {
                 name = name,
                 description = desc,
                 price = priceParse,
-                url = urlDialog
+                url = urlDialog,
+                userId = user.value?.id.toString()
             )
         }
     }

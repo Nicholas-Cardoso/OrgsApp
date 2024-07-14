@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import br.com.linux.orgs.R
 import br.com.linux.orgs.database.AppDatabase
 import br.com.linux.orgs.databinding.ActivityViewProductsBinding
 import br.com.linux.orgs.extensions.formattedPrice
 import br.com.linux.orgs.extensions.tryLoadImage
 import br.com.linux.orgs.model.Products
+import kotlinx.coroutines.launch
 
 class ViewProductsActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -19,7 +21,7 @@ class ViewProductsActivity : AppCompatActivity() {
     private val database by lazy {
         AppDatabase.getInstance(this).productDao()
     }
-    private var productId: Long? = null
+    private var productId: Long = 0L
     private var product: Products? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +34,13 @@ class ViewProductsActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        productId?.let {
-            product = database.getById(it)
-        }
-        product?.let {
-            insertAllDataInActivity(it)
+        lifecycleScope.launch {
+            database.getById(productId).collect { foundProduct ->
+                product = foundProduct
+                product?.let {
+                    insertAllDataInActivity(it)
+                } ?: finish()
+            }
         }
     }
 
@@ -56,9 +60,11 @@ class ViewProductsActivity : AppCompatActivity() {
 
             R.id.details_delete -> {
                 product?.let {
-                    database.delete(it)
+                    lifecycleScope.launch {
+                        database.delete(it)
+                        finish()
+                    }
                 }
-                finish()
             }
         }
         return super.onOptionsItemSelected(item)

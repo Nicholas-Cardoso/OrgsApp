@@ -9,6 +9,14 @@
         <item name="android:background">@drawable/button_hover_without_border</item>
     </style>
 
+    <style name="btnLogoutKidding" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/button_hover_kidding</item>
+    </style>
+
+    <style name="btnLogout" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@drawable/button_hover_logout</item>
+    </style>
+
     <style name="EditTextForm" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/edit_text_form</item>
     </style>

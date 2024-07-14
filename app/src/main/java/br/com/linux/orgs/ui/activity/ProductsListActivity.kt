@@ -4,26 +4,30 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import br.com.linux.orgs.R
 import br.com.linux.orgs.database.AppDatabase
 import br.com.linux.orgs.databinding.ActivityProductsBinding
 import br.com.linux.orgs.model.Products
+import br.com.linux.orgs.ui.dialog.DialogLogout
 import br.com.linux.orgs.ui.recyclerview.adapter.ListProductsAdapter
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 
-class ProductsListActivity : AppCompatActivity() {
+class ProductsListActivity : UserBaseActivity() {
     private val adapter = ListProductsAdapter(this)
     private val binding by lazy {
         ActivityProductsBinding.inflate(layoutInflater)
     }
-    private val database by lazy {
+    private val databaseProduct by lazy {
         AppDatabase.getInstance(this).productDao()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         configureRecyclerView()
         setProductList()
         sendMailService()
@@ -31,7 +35,19 @@ class ProductsListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.update(database.getAll())
+
+        lifecycleScope.launch {
+            user.filterNotNull().collect {
+                title = "Products - ${it.name}"
+                findAllProductsByUser()
+            }
+        }
+    }
+
+    private suspend fun findAllProductsByUser() {
+        databaseProduct.getAllProductsByUser(user.value?.id.toString()).collect {
+            adapter.update(it)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,31 +58,33 @@ class ProductsListActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val product: List<Products>? = when (item.itemId) {
             R.id.menu_list_by_asc_name ->
-                database.findAllByNameAsc()
+                databaseProduct.findAllByNameAsc()
 
             R.id.menu_list_by_desc_name ->
-                database.findAllByNameDesc()
+                databaseProduct.findAllByNameDesc()
 
             R.id.menu_list_by_asc_description ->
-                database.findAllByDescriptionAsc()
+                databaseProduct.findAllByDescriptionAsc()
 
             R.id.menu_list_by_desc_description ->
-                database.findAllByDescriptionDesc()
+                databaseProduct.findAllByDescriptionDesc()
 
             R.id.menu_list_by_asc_price ->
-                database.findAllByPriceAsc()
+                databaseProduct.findAllByPriceAsc()
 
             R.id.menu_list_by_desc_price ->
-                database.findAllByPriceDesc()
-
-            R.id.menu_list_no_order ->
-                database.getAll()
+                databaseProduct.findAllByPriceDesc()
 
             else -> null
         }
         product?.let {
             adapter.update(it)
         }
+
+        if (item.itemId == R.id.logout) {
+            DialogLogout(this).showDialog()
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

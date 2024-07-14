@@ -4,16 +4,12 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
-import java.math.BigDecimal
 
 @Entity
 @Parcelize
-data class Products(
+data class User(
     @PrimaryKey(autoGenerate = true) val id: Long = 0L,
+    val user: String?,
     val name: String?,
-    val description: String?,
-    val price: BigDecimal?,
-    val url: String? = null,
-    val isValid: Boolean = false,
-    val userId: String? = null
+    val password: String?
 ) : Parcelable

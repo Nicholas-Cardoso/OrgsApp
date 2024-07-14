@@ -6,23 +6,24 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import br.com.linux.orgs.model.Products
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ProductDAO {
-    @Query("SELECT * FROM Products")
-    fun getAll(): List<Products>
+    @Query("SELECT * FROM Products WHERE userId = :userId")
+    fun getAllProductsByUser(userId: String?): Flow<List<Products>>
 
     @Query("SELECT * FROM Products WHERE id = :id")
-    fun getById(id: Long): Products
+    fun getById(id: Long): Flow<Products?>
 
     @Insert
-    fun insertProduct(vararg products: Products)
+    suspend fun createProduct(vararg products: Products)
 
     @Update
-    fun updateProduct(product: Products)
+    suspend fun updateProduct(product: Products)
 
     @Delete
-    fun delete(products: Products)
+    suspend fun delete(products: Products)
 
     // Filters
     @Query("SELECT * FROM Products ORDER BY name ASC")

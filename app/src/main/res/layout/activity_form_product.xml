@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         tools:context=".ui.activity.FormProductActivity">
 
         <ImageView
@@ -80,9 +80,7 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/price"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btn_save"
@@ -98,9 +96,7 @@
             app:cornerRadius="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_return"
-            app:layout_constraintTop_toBottomOf="@+id/price"
-            app:layout_constraintVertical_bias="1" />
+            app:layout_constraintStart_toEndOf="@+id/btn_return" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,16 +12,6 @@ class DialogImageForm(private val context: Context) {
         whenImageLoader: (image: String) -> Unit
     ) {
         FormImageBinding.inflate(LayoutInflater.from(context)).apply {
-            urlDefault?.let {
-                imageViewDefault.tryLoadImage(it)
-                inputImageUrl.setText(it)
-            }
-
-            buttonLoad.setOnClickListener {
-                val url = inputImageUrl.text.toString()
-                imageViewDefault.tryLoadImage(url)
-            }
-
             AlertDialog.Builder(context)
                 .setView(root)
                 .setPositiveButton("Confirmar") { _, _ ->
@@ -31,6 +21,16 @@ class DialogImageForm(private val context: Context) {
                 .setNegativeButton("Cancelar") { _, _ ->
 
                 }.show()
+
+            urlDefault?.let {
+                imageViewDefault.tryLoadImage(it)
+                inputImageUrl.setText(it)
+            }
+
+            buttonLoad.setOnClickListener {
+                val url = inputImageUrl.text.toString()
+                imageViewDefault.tryLoadImage(url)
+            }
         }
     }
 }

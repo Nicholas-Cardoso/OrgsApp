@@ -27,6 +27,12 @@
             android:name=".ui.activity.ViewProductsActivity"
             android:exported="true" />
         <activity
+            android:name=".ui.activity.RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.activity.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activity.ProductsListActivity"
             android:exported="true">
             <intent-filter>

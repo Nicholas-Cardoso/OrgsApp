@@ -26,9 +26,11 @@
             <item
                 android:id="@+id/menu_list_by_asc_price"
                 android:title="Asc price" />
-            <item
-                android:id="@+id/menu_list_no_order"
-                android:title="No order" />
         </menu>
     </item>
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/baseline_person_24"
+        android:title="Logout"
+        app:showAsAction="ifRoom"></item>
 </menu>

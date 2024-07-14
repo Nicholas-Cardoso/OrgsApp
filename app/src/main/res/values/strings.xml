@@ -24,4 +24,12 @@
     <string name="send">SEND</string>
     <string name="load">Carregar</string>
     <string name="url_da_imagem">URL da imagem</string>
+    <string name="login">LOG IN</string>
+    <string name="register">REGISTER</string>
+    <string name="pass">Password</string>
+    <string name="user">User</string>
+    <string name="leaving">You´re leaving...</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="nah_just_kidding">Nah, Just Kidding</string>
+    <string name="yes_log_me_out">Yes, Log Me Out</string>
 </resources>
